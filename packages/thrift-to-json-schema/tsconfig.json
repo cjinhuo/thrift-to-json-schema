@@ -1,0 +1,15 @@
+{
+  "extends": "@trasm/tsconfig",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "esm",
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../shared"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@trasm/eslint-config",
+  "description": "pnpm's ESLint configuration",
+  "version": "1.0.1",
+  "author": {
+    "name": "Zoltan Kochan",
+    "email": "z@kochan.io",
+    "url": "https://www.kochan.io/"
+  },
+  "bugs": {
+    "url": "https://github.com/pnpm/eslint-config/issues"
+  },
+  "main": "index.js",
+  "homepage": "https://pnpm.io",
+  "keywords": [],
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.22.0"
+  },
+  "repository": "https://github.com/pnpm/pnpm/blob/master/utils/eslint-config",
+  "scripts": {},
+  "devDependencies": {
+    "@trasm/eslint-config": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-html": "^6.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-sonarjs": "^0.16.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.8.4"
+  }
+}

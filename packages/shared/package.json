@@ -1,0 +1,20 @@
+{
+  "name": "@trasm/shared",
+  "version": "0.0.1",
+  "description": "@trasm/shared",
+  "author": "cjinhuo",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "esm": "tsc -b ./tsconfig.json",
+    "test": "jest --config jest.config.cjs"
+  },
+  "dependencies": {
+    "@trasm/tsconfig": "workspace:*"
+  }
+}

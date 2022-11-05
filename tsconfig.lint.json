@@ -1,0 +1,9 @@
+{
+  "extends": "@trasm/tsconfig",
+  "include": [
+    // 可以移除？
+    "**/src/**/*.ts",
+    ".eslintrc.js"
+    // "**/__test__/**/*.ts",
+  ]
+}

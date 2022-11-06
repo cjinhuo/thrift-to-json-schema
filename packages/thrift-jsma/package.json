@@ -1,6 +1,6 @@
 {
   "name": "@trasm/thrift-jsma",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "@trasm/thrift-jsma",
   "author": "cjinhuo",
   "license": "MIT",
@@ -8,7 +8,9 @@
   "module": "esm/index.js",
   "types": "esm/index.d.ts",
   "publishConfig": {
-    "main": "dist/index.js"
+    "main": "esm/index.js",
+    "module": "esm/index.js",
+    "types": "esm/index.d.ts"
   },
   "type": "module",
   "files": ["dist"],
@@ -22,8 +24,7 @@
     "build": "rollup -c rollup.config.js",
     "build:cjs": "rollup -c ./rollups/iife.rollup.mjs",
     "build:watch": "rollup -c  ./rollups/cjs.rollup.mjs --watch",
-    "batch-rollup": "batch-rollup -f ./rollups",
-    "help": "rollup -h"
+    "batch-rollup": "batch-rollup -f ./rollups"
   },
   "dependencies": {
     "@trasm/rollup": "workspace:*",

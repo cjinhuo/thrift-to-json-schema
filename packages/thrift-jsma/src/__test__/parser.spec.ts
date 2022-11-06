@@ -1,5 +1,7 @@
+import { SyntaxType } from '@creditkarma/thrift-parser'
 import { Type } from '@sinclair/typebox'
 
+import { NumericalKeywordMap } from '../constants'
 import { parseThriftToTypeBox } from '../parser'
 
 test('parseThriftToJsonSchema should work with empty struct in thrift', () => {
@@ -31,8 +33,8 @@ test('should work with single struct', () => {
     {
       field_string: Type.String(),
       field_double: Type.Number(),
-      field_i32: Type.Number(),
-      field_i64: Type.Number(),
+      field_i32: Type.Integer(NumericalKeywordMap[SyntaxType.I32Keyword]),
+      field_i64: Type.Integer(),
       field_bool: Type.Boolean(),
       field_optional_string: Type.Optional(Type.String()),
     },

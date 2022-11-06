@@ -23,6 +23,7 @@ import {
   schemaMapTypeDslToObj,
   isOneOfSyntaxType,
   getHeaderStructDefinition,
+  getTypeBoxOptionWithNumericalKeyword,
 } from './utils'
 
 /**
@@ -121,7 +122,13 @@ function handleRegularCaseInFields(
   schemaMap: MapAnySchema
 ) {
   const typeBox = getBasicTypeBoxWithSyntaxType(fieldType.type)
-  schemaMap[name.value] = setOptional(typeBox(getRegularOptionByComments(comments)), requiredness)
+  schemaMap[name.value] = setOptional(
+    typeBox({
+      ...getTypeBoxOptionWithNumericalKeyword(fieldType.type),
+      ...getRegularOptionByComments(comments),
+    }),
+    requiredness
+  )
   return schemaMap
 }
 

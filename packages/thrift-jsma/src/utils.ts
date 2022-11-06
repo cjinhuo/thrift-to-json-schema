@@ -1,7 +1,7 @@
 import { SyntaxType, Comment, StructDefinition } from '@creditkarma/thrift-parser'
 import { TSchema, Type } from '@sinclair/typebox'
 
-import { FlagTypes, MapPositionType } from './constants'
+import { FlagTypes, MapPositionType, NumericalKeywordMap } from './constants'
 import { BasicTypeBox, BasicDslToObjType, MapTypeBasicDslToObjType } from './types'
 
 export const getBasicTypeBoxWithSyntaxType = (syntaxType: SyntaxType): BasicTypeBox => {
@@ -10,6 +10,7 @@ export const getBasicTypeBoxWithSyntaxType = (syntaxType: SyntaxType): BasicType
     case SyntaxType.I16Keyword:
     case SyntaxType.I32Keyword:
     case SyntaxType.I64Keyword:
+      return Type.Integer.bind(Type)
     case SyntaxType.DoubleKeyword:
       return Type.Number.bind(Type)
     case SyntaxType.StringKeyword:
@@ -20,6 +21,11 @@ export const getBasicTypeBoxWithSyntaxType = (syntaxType: SyntaxType): BasicType
     default:
       return Type.Any.bind(Type)
   }
+}
+
+export const getTypeBoxOptionWithNumericalKeyword = (numericalKeyword: SyntaxType) => {
+  if (!NumericalKeywordMap[numericalKeyword]) return {}
+  return NumericalKeywordMap[numericalKeyword]
 }
 
 export const isOneOfSyntaxType = (type: string | undefined) => {

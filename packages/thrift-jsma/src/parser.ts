@@ -25,8 +25,6 @@ import {
   getHeaderStructDefinition,
 } from './utils'
 
-// optional map<string, ActionRelatedDetail> metrics // 自定义数值 string 对应 ev_type, 比如 http 、js_error
-
 /**
  * parse thrift to json schema
  * @param thriftString thrift content
@@ -171,10 +169,16 @@ function handleMapTypeInFields(
   const hasStructAsValue = !isOneOfSyntaxType(valueType.value)
   const typeBoxWrapper = (valueTypeBoxParam = valueTypeBox(optionMap.get(MapPositionType.key))) =>
     setOptional(
-      Type.Record(keyTypeBox(optionMap.get(MapPositionType.key)), valueTypeBoxParam, {
-        description,
-        ...optionMap.get(MapPositionType.options),
-      }),
+      Type.Record(
+        keyTypeBox(optionMap.get(MapPositionType.key)),
+        valueTypeBoxParam,
+        description
+          ? {
+              description,
+              ...optionMap.get(MapPositionType.options),
+            }
+          : optionMap.get(MapPositionType.options)
+      ),
       requiredness
     )
   const beingRefedFn = ($id: TSchema) => typeBoxWrapper($id)

@@ -2,7 +2,7 @@ import { Type } from '@sinclair/typebox'
 
 import { parseThriftToTypeBox } from '../parser'
 
-test.skip('parseThriftToJsonSchema should work with empty struct in thrift', () => {
+test('parseThriftToJsonSchema should work with empty struct in thrift', () => {
   const structString = `
   struct EmptyStruct {
 
@@ -27,21 +27,17 @@ test('should work with single struct', () => {
   }
   `
   const typeBox = parseThriftToTypeBox(structString)
-  const options = {
-    description: '',
-  }
   const expectedTypeBox = Type.Object(
     {
-      field_string: Type.String(options),
-      field_double: Type.Number(options),
-      field_i32: Type.Number(options),
-      field_i64: Type.Number(options),
-      field_bool: Type.Boolean(options),
-      field_optional_string: Type.Optional(Type.String(options)),
+      field_string: Type.String(),
+      field_double: Type.Number(),
+      field_i32: Type.Number(),
+      field_i64: Type.Number(),
+      field_bool: Type.Boolean(),
+      field_optional_string: Type.Optional(Type.String()),
     },
     {
       additionalProperties: true,
-      ...options,
     }
   )
   console.log('typeBox', typeBox, expectedTypeBox)

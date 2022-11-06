@@ -138,9 +138,10 @@ export function getRegularOptionByComments(comments: Comment[]) {
       result[item.key] = item.value
       return result
     }, {} as any)
-
-  return {
-    ...option,
-    description,
-  }
+  return description
+    ? {
+        ...option,
+        description,
+      }
+    : option
 }

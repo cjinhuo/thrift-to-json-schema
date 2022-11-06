@@ -5,11 +5,11 @@
   "description": "the best trasmrepo ",
   "scripts": {
     "commit": "git add . && git cz",
+    "build:app": "pnpm --filter @trasm/parser-view run build",
+    "move-app-dir": "mv ./app/parser-view/dist ./docs",
     "esm": "pnpm --parallel esm",
     "test": "pnpm --parallel test",
     "batch-rollup": "pnpm --parallel batch-rollup",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "bundle": "DEBUG=* ts-node ./scripts/bundle.ts --package packages",
     "postinstall": "husky install",
     "preinstall": "npx only-allow pnpm"
   },

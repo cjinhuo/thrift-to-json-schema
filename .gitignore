@@ -26,5 +26,6 @@ tsconfig.tsbuildinfo
 # output dir
 temp
 dist
+docs
 lib
 esm

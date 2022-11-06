@@ -1,0 +1,39 @@
+{
+  "name": "@trasm/parser-view",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --force",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@arco-design/web-react": "^2.40.1",
+    "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/language": "^6.3.0",
+    "@codemirror/legacy-modes": "^6.2.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@trasm/thrift-jsma": "workspace:*",
+    "@uiw/react-codemirror": "^4.12.4",
+    "jotai": "^1.9.1",
+    "normalize.css": "^8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "@vitejs/plugin-react": "^2.2.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@babel/core": "^7"
+      }
+    }
+  }
+}

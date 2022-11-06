@@ -4,7 +4,7 @@
   "description": "@trasm/thrift-jsma",
   "author": "cjinhuo",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "esm/index.js",
   "module": "esm/index.js",
   "types": "esm/index.d.ts",
   "publishConfig": {

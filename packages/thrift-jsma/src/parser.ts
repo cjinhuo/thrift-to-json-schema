@@ -60,7 +60,7 @@ function traverseBody(thriftASTBody: Array<ThriftStatement | FieldDefinition>) {
   const StructDefinitions = thriftASTBody.filter(
     (item) => item.type === SyntaxType.StructDefinition
   ) as StructDefinition[]
-
+  if (!StructDefinitions.length) return Type.Any()
   const structMap = getStructMap(StructDefinitions)
   const headerStruct = getHeaderStructDefinition(StructDefinitions)
   const headerTSchema = structMap.get(headerStruct.name.value)!

@@ -1,4 +1,4 @@
-import { SyntaxType, Comment } from '@creditkarma/thrift-parser'
+import { SyntaxType, Comment, StructDefinition } from '@creditkarma/thrift-parser'
 import { TSchema, Type } from '@sinclair/typebox'
 
 import { FlagTypes, MapPositionType } from './constants'
@@ -49,6 +49,10 @@ export function isSchemaComment(comment: string) {
   return comment.includes(DslSchemaPrefix)
 }
 
+export function isFlagComment(comment: string) {
+  return comment.includes(DslFlagPrefix)
+}
+
 export function getSchemaContents(comments: Comment[]) {
   return comments
     .filter((item) => isSchemaComment(item.value as string))
@@ -85,6 +89,17 @@ function safeParseValueDslValue(value: string) {
 }
 
 /**
+ * only has one header in the whole file.
+ * take the first one that has [@flag header] when there have multiple [@flag header]
+ * @param structDefinitions
+ * @returns
+ */
+export function getHeaderStructDefinition(structDefinitions: StructDefinition[]) {
+  const headerFlagStruct = structDefinitions.find((item) => isHeaderOfFlag(item.comments))
+  return headerFlagStruct || structDefinitions[0]
+}
+
+/**
  * minimum:0 => key:minimum value:Number(0)
  */
 export function schemaDslToObj(str: string): BasicDslToObjType {
@@ -108,7 +123,9 @@ export function schemaMapTypeDslToObj(str: string): MapTypeBasicDslToObjType {
 
 export function getDescriptionByComments(comments: Comment[]) {
   return comments
-    .filter((item) => !isSchemaComment(item.value as string))
+    .filter(
+      (item) => !isSchemaComment(item.value as string) && !isFlagComment(item.value as string)
+    )
     .map((item) => item.value as string)
     .join('/n')
 }

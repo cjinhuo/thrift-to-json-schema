@@ -1,6 +1,7 @@
 import { NumericOptions, TSchema } from '@sinclair/typebox'
 
 import { MapPositionType } from './constants'
+
 export type MapAnySchema = Record<string, TSchema>
 
 export interface BeingRefItemType {
@@ -8,6 +9,8 @@ export interface BeingRefItemType {
   fieldValue: string
   fn: ($id: TSchema) => void
 }
+
+export type BeingRefedArrayPushType = (valueType: string, fn: ($id: TSchema) => void) => void
 
 export type BeingRefedArrayType = [string, ($id: TSchema) => void][]
 export type StructMapType = Map<string, TSchema>

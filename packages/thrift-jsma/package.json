@@ -1,7 +1,7 @@
 {
-  "name": "@trasm/thrift-to-json-schema",
+  "name": "@trasm/thrift-jsma",
   "version": "0.0.1",
-  "description": "@trasm/thrift-to-json-schema",
+  "description": "@trasm/thrift-jsma",
   "author": "cjinhuo",
   "license": "MIT",
   "main": "src/index.ts",
@@ -11,9 +11,7 @@
     "main": "dist/index.js"
   },
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "dev": "run-s esm:watch build:watch",
     "esm": "tsc -b ./tsconfig.json",

@@ -6,5 +6,5 @@ const FooterWrapper = styled.div`
   text-align: center;
 `
 export default function FooterContent() {
-  return <FooterWrapper>Copyright © 2022 ByteDance, Inc. Powered by Slardar Web.</FooterWrapper>
+  return <FooterWrapper>Copyright © 2022 Powered by Shanks.</FooterWrapper>
 }

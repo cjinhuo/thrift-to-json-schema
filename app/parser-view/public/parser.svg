@@ -1,0 +1,31 @@
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg206256" viewBox="0 0 1024 768" height="768px" width="1024px" version="1.1">
+  <metadata id="metadata206262">
+    <rdf:rdf>
+      <cc:work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+      </cc:work>
+    </rdf:rdf>
+  </metadata>
+  <defs id="defs206260"></defs>
+  <linearGradient spreadMethod="pad" y2="30%" x2="-10%" y1="120%" x1="30%" id="3d_gradient2-logo-757cffd6-5306-4aad-b70b-43734b6bce1d">
+    <stop id="stop206237" stop-opacity="1" stop-color="#ffffff" offset="0%"></stop>
+    <stop id="stop206239" stop-opacity="1" stop-color="#000000" offset="100%"></stop>
+  </linearGradient>
+  <linearGradient gradientTransform="rotate(-30)" spreadMethod="pad" y2="30%" x2="-10%" y1="120%" x1="30%" id="3d_gradient3-logo-757cffd6-5306-4aad-b70b-43734b6bce1d">
+    <stop id="stop206242" stop-opacity="1" stop-color="#ffffff" offset="0%"></stop>
+    <stop id="stop206244" stop-opacity="1" stop-color="#cccccc" offset="50%"></stop>
+    <stop id="stop206246" stop-opacity="1" stop-color="#000000" offset="100%"></stop>
+  </linearGradient>
+  <g id="logo-group">
+    <image xlink:href="" id="container" x="272" y="144" width="480" height="480" style="display: none;" transform="translate(0 0)"></image>
+    <g id="logo-center" transform="translate(0 0)">
+      <image xlink:href="" id="icon_container" style="display: none;" x="0" y="0"></image>
+      <g id="slogan" style="font-style:normal;font-weight:200;font-size:32px;line-height:1;font-family:'Work Sans';font-variant-ligatures:none;text-align:center;text-anchor:middle" transform="translate(0 0)"></g>
+      <g id="title" style="font-style:normal;font-weight:400;font-size:72px;line-height:1;font-family:'Brandmark Dots 1 Color';font-variant-ligatures:normal;text-align:center;text-anchor:middle" transform="translate(0 0)">
+        <g id="path206265" aria-label="P" transform="translate(0 0) translate(379 0) scale(16) translate(-494.64406 50.4)"> <path class="c1" d="M116.52588,101.7917c-1.36816,2.23242-4.32031,2.95215-6.55273,1.51172 c-2.30469-1.36719-2.95215-4.32031-1.58398-6.55176c0.86426-1.44043,1.44043-3.09668,1.44043-4.6084 c0-1.87207-0.43262-7.77734-6.19336-7.77734H90.24365v36.0752c0,2.59277-2.16016,4.75293-4.82422,4.75293 c-2.59277,0-4.75293-2.16016-4.75293-4.75293V79.5417c0-2.5918,2.16016-4.75195,4.75293-4.75195h18.2168 c10.80176,0,15.69727,9,15.69727,17.35352C119.3335,95.3835,118.32568,98.83955,116.52588,101.7917z" transform="translate(413.97756 -125.18975)" stroke-width="0" stroke-linejoin="miter" stroke-miterlimit="2" fill="#064690" stroke="#064690"></path> <path class="c3" d="M99.74854,109.35225c-2.59277,0-4.75293-2.16016-4.75293-4.82422c0-2.5918,2.16016-4.75195,4.75293-4.75195 c2.66406,0,4.75195,2.16016,4.75195,4.75195C104.50049,107.19209,102.4126,109.35225,99.74854,109.35225z" transform="translate(413.97756 -125.18975)" stroke-width="0" stroke-linejoin="miter" stroke-miterlimit="2" fill="#fe8d8d" stroke="#fe8d8d"></path> </g>
+       </g>
+      <image xlink:href="" id="icon" style="display: none;" x="0" y="0"></image>
+    </g>
+  </g>
+</svg>

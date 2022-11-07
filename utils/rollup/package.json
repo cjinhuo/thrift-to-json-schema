@@ -3,6 +3,7 @@
   "description": "rollup scripts",
   "version": "0.0.1",
   "type": "module",
+  "private": true,
   "author": {
     "name": "Shanks",
     "email": "cjinhuo@qq.com",

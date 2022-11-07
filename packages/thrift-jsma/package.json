@@ -1,6 +1,6 @@
 {
   "name": "@trasm/thrift-jsma",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "@trasm/thrift-jsma",
   "author": "cjinhuo",
   "license": "MIT",
@@ -8,6 +8,7 @@
   "module": "esm/index.js",
   "types": "esm/index.d.ts",
   "publishConfig": {
+    "access": "public",
     "main": "esm/index.js",
     "module": "esm/index.js",
     "types": "esm/index.d.ts"

@@ -5,6 +5,9 @@
   "description": "the best trasmrepo ",
   "scripts": {
     "commit": "git add . && git cz",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish",
     "build:app": "pnpm --filter @trasm/parser-view run build",
     "move-app-dir": "mv ./app/parser-view/dist ./docs",
     "esm": "pnpm --parallel esm",

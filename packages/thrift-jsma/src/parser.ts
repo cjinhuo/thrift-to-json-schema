@@ -114,6 +114,7 @@ function handleListTypeInFields(
   } else {
     schemaMap[name.value] = typeBoxWrapper()
   }
+
   return schemaMap
 }
 
@@ -174,7 +175,7 @@ function handleMapTypeInFields(
       ])
     )
   const hasStructAsValue = !isOneOfSyntaxType(valueType.value)
-  const typeBoxWrapper = (valueTypeBoxParam = valueTypeBox(optionMap.get(MapPositionType.key))) =>
+  const typeBoxWrapper = (valueTypeBoxParam = valueTypeBox(optionMap.get(MapPositionType.value))) =>
     setOptional(
       Type.Record(
         keyTypeBox(optionMap.get(MapPositionType.key)),

@@ -11,9 +11,9 @@ const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const packagesRoot = resolve(__dirname, '../../../packages')
 const aliasConfig = alias({
-  entries: [{ find: /^@trasm\/core$/, replacement: join(packagesRoot, 'core', 'esm') }],
-  entries: [{ find: /^@trasm\/web$/, replacement: join(packagesRoot, 'web', 'esm') }],
-  entries: [{ find: /^@trasm\/react$/, replacement: join(packagesRoot, 'react', 'esm') }],
+  entries: [
+    { find: /^@trasm\/thrift-jsma$/, replacement: join(packagesRoot, 'thrift-jsma', 'esm') },
+  ],
   entries: [{ find: /^@trasm\/shared$/, replacement: join(packagesRoot, 'shared', 'esm') }],
 })
 

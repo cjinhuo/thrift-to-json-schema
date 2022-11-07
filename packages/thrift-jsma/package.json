@@ -13,7 +13,7 @@
     "types": "esm/index.d.ts"
   },
   "type": "module",
-  "files": ["dist"],
+  "files": ["dist", "esm"],
   "scripts": {
     "dev": "run-s esm:watch build:watch",
     "esm": "tsc -b ./tsconfig.json",
@@ -22,7 +22,7 @@
     "lintHelper": "eslint -h",
     "test": "jest --config jest.config.cjs",
     "build": "rollup -c rollup.config.js",
-    "build:cjs": "rollup -c ./rollups/iife.rollup.mjs",
+    "build:cjs": "rollup -c ./rollups/cjs.rollup.mjs",
     "build:watch": "rollup -c  ./rollups/cjs.rollup.mjs --watch",
     "batch-rollup": "batch-rollup -f ./rollups"
   },

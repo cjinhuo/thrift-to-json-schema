@@ -2,6 +2,7 @@ import { SyntaxType, Comment, StructDefinition } from '@creditkarma/thrift-parse
 import { TSchema, Type } from '@sinclair/typebox'
 
 import { FlagTypes, MapPositionType, NumericalKeywordMap } from './constants'
+import { getGroupsWithReg, SplitSchemaColonReg, SplitSchemaDotReg } from './reg'
 import { BasicTypeBox, BasicDslToObjType, MapTypeBasicDslToObjType } from './types'
 
 export const getBasicTypeBoxWithSyntaxType = (syntaxType: SyntaxType): BasicTypeBox => {
@@ -90,6 +91,7 @@ function safeParseValueDslValue(value: string) {
     evalRes = eval(value)
   } catch (error) {
     console.log('eval error', error)
+    evalRes = value
   }
   return evalRes
 }
@@ -109,7 +111,7 @@ export function getHeaderStructDefinition(structDefinitions: StructDefinition[])
  * minimum:0 => key:minimum value:Number(0)
  */
 export function schemaDslToObj(str: string): BasicDslToObjType {
-  const [key, value] = str.split(':')
+  const [key, value] = getGroupsWithReg(str, SplitSchemaColonReg)
   return {
     key,
     value: safeParseValueDslValue(value),
@@ -118,9 +120,11 @@ export function schemaDslToObj(str: string): BasicDslToObjType {
 
 /**
  * value.maxLength:10 => position:value key:maxLength value:Number(10)
+ * @param str
+ * @returns
  */
 export function schemaMapTypeDslToObj(str: string): MapTypeBasicDslToObjType {
-  const [position, content] = str.split('.')
+  const [position, content] = getGroupsWithReg(str, SplitSchemaDotReg)
   return {
     position: position as MapPositionType,
     ...schemaDslToObj(content),

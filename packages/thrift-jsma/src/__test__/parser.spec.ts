@@ -42,7 +42,29 @@ test('should work with single struct', () => {
       additionalProperties: true,
     }
   )
-  console.log('typeBox', typeBox, expectedTypeBox)
 
+  expect(typeBox).toEqual(expectedTypeBox)
+})
+
+test('should work with mapType', () => {
+  const structString = `
+  # @flag header
+  struct MapStruct {
+    map<string, string> extra
+    # @schema key.pattern:'^[\S]{1,50}$'
+    # @schema value.maxLength:256
+  }
+  `
+  const typeBox = parseThriftToTypeBox(structString)
+  const expectedTypeBox = Type.Object({
+    extra: Type.Record(
+      Type.String({
+        pattern: '^[S]{1,50}$',
+      }),
+      Type.String({
+        maxLength: 256,
+      })
+    ),
+  })
   expect(typeBox).toEqual(expectedTypeBox)
 })

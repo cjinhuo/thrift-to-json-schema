@@ -9,7 +9,7 @@ import {
   ListType,
   StructDefinition,
 } from '@creditkarma/thrift-parser'
-import { TSchema, Type } from '@sinclair/typebox'
+import { ObjectOptions, TSchema, Type } from '@sinclair/typebox'
 
 import { MapPositionType } from './constants'
 import { beingRefedArrayPush, getRefedArray, resetBeingRefedArray } from './global'
@@ -175,18 +175,14 @@ function handleMapTypeInFields(
       ])
     )
   const hasStructAsValue = !isOneOfSyntaxType(valueType.value)
+  const options = {
+    // set additionalProperties: true default is not working  for MapType<string,string>, because the Type.Record set it false forcedly
+    ...optionMap.get(MapPositionType.options),
+  } as ObjectOptions
+  description && (options.description = description)
   const typeBoxWrapper = (valueTypeBoxParam = valueTypeBox(optionMap.get(MapPositionType.value))) =>
     setOptional(
-      Type.Record(
-        keyTypeBox(optionMap.get(MapPositionType.key)),
-        valueTypeBoxParam,
-        description
-          ? {
-              description,
-              ...optionMap.get(MapPositionType.options),
-            }
-          : optionMap.get(MapPositionType.options)
-      ),
+      Type.Record(keyTypeBox(optionMap.get(MapPositionType.key)), valueTypeBoxParam, options),
       requiredness
     )
   const beingRefedFn = ($id: TSchema) => typeBoxWrapper($id)

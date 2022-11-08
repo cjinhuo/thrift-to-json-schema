@@ -13,7 +13,6 @@ jobs:
       - run: npm install pnpm -g
       - run: pnpm i
       - run: pnpm run build:app
-      - run: pnpm run move-app-dir
       - name: Deploy dist
         uses: peaceiris/actions-gh-pages@v3
         with:

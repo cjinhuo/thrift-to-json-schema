@@ -10,7 +10,6 @@
     "changeset:publish": "changeset publish",
     "changeset:status": "changeset status --verbose",
     "build:app": "pnpm run esm && pnpm --filter @trasm/parser-view run build",
-    "move-app-dir": "mv ./app/parser-view/dist ./dist",
     "esm": "pnpm --parallel esm",
     "test": "pnpm --parallel test",
     "batch-rollup": "pnpm --parallel batch-rollup",

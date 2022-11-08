@@ -9,7 +9,7 @@
     "changeset:version": "changeset version",
     "changeset:publish": "changeset publish",
     "changeset:status": "changeset status --verbose",
-    "build:app": "pnpm --filter @trasm/parser-view run build",
+    "build:app": "pnpm run esm && pnpm --filter @trasm/parser-view run build",
     "move-app-dir": "mv ./app/parser-view/dist ./docs",
     "esm": "pnpm --parallel esm",
     "test": "pnpm --parallel test",

@@ -116,10 +116,7 @@ importers:
       vite: 3.2.2
 
   packages/shared:
-    specifiers:
-      '@trasm/tsconfig': workspace:^
-    devDependencies:
-      '@trasm/tsconfig': link:../../utils/tsconfig
+    specifiers: {}
 
   packages/thrift-jsma:
     specifiers:

@@ -13,12 +13,9 @@
     "module": "esm/index.js",
     "types": "esm/index.d.ts"
   },
-  "files": ["dist"],
+  "files": ["dist", "esm"],
   "scripts": {
     "esm": "tsc -b ./tsconfig.json",
     "test": "jest --config jest.config.cjs"
-  },
-  "devDependencies": {
-    "@trasm/tsconfig": "workspace:^"
   }
 }

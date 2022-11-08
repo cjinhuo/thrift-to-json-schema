@@ -2,7 +2,7 @@
   "name": "trasm",
   "version": "0.0.1",
   "private": true,
-  "description": "the best trasmrepo ",
+  "description": "thrift to json schema with typescript",
   "scripts": {
     "commit": "git add . && git cz",
     "changeset": "changeset",
@@ -15,6 +15,10 @@
     "batch-rollup": "pnpm --parallel batch-rollup",
     "postinstall": "husky install",
     "preinstall": "npx only-allow pnpm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjinhuo/thrift-to-json-schema.git"
   },
   "packageManager": "pnpm@7.13.5",
   "engines": {

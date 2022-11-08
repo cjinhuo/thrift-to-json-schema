@@ -1,6 +1,6 @@
 {
   "name": "@trasm/thrift-jsma",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "@trasm/thrift-jsma",
   "author": "cjinhuo",
   "license": "MIT",
@@ -28,10 +28,12 @@
     "batch-rollup": "batch-rollup -f ./rollups"
   },
   "dependencies": {
-    "@trasm/rollup": "workspace:*",
     "@trasm/shared": "workspace:*",
-    "@trasm/tsconfig": "workspace:*",
     "@creditkarma/thrift-parser": "^2.0.0",
     "@sinclair/typebox": "^0.25.2"
+  },
+  "devDependencies": {
+    "@trasm/rollup": "workspace:*",
+    "@trasm/tsconfig": "workspace:*"
   }
 }

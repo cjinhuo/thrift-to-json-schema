@@ -117,8 +117,8 @@ importers:
 
   packages/shared:
     specifiers:
-      '@trasm/tsconfig': workspace:*
-    dependencies:
+      '@trasm/tsconfig': workspace:^
+    devDependencies:
       '@trasm/tsconfig': link:../../utils/tsconfig
 
   packages/thrift-jsma:
@@ -131,8 +131,9 @@ importers:
     dependencies:
       '@creditkarma/thrift-parser': 2.0.0
       '@sinclair/typebox': 0.25.2
-      '@trasm/rollup': link:../../utils/rollup
       '@trasm/shared': link:../shared
+    devDependencies:
+      '@trasm/rollup': link:../../utils/rollup
       '@trasm/tsconfig': link:../../utils/tsconfig
 
   utils/eslint-config:

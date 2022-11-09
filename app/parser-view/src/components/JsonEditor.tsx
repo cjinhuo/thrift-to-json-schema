@@ -15,7 +15,7 @@ export default function JsonEditor() {
   const { goContent } = useAtomValue(EditorAtom)
   useEffect(() => {
     const typeBox = parseThriftToTypeBox(goContent, (err) => {
-      console.log('err', err)
+      console.log('parser error', err)
     })
     if (typeBox) {
       setJsonSchema(JSON.stringify(typeBox, null, 2))

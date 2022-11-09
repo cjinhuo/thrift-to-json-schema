@@ -1,4 +1,4 @@
-import { atomWithReset, selectAtom } from 'jotai/utils'
+import { atomWithReset } from 'jotai/utils'
 
 interface EditorAtomType {
   goContent: string

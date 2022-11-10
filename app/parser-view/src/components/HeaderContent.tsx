@@ -20,6 +20,7 @@ const ImgWrapper = styled.img`
 const IconGithubWrapper = styled(IconGithub)`
   font-size: 18px;
   cursor: pointer;
+  color: #ececec;
   &:hover {
     background-color: #585858;
   }
@@ -28,6 +29,7 @@ const IconGithubWrapper = styled(IconGithub)`
 const IconLinkWrapper = styled(IconLink)`
   font-size: 18px;
   cursor: pointer;
+  color: #ececec;
   margin-left: 16px;
   &:hover {
     background-color: #585858;

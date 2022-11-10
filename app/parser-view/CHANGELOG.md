@@ -1,5 +1,11 @@
 # @trasm/parser-view
 
+## 0.0.4
+
+### Patch Changes
+
+- b22417c: add dark theme
+
 ## 0.0.3
 
 ### Patch Changes

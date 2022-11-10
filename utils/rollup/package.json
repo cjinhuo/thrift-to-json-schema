@@ -14,10 +14,10 @@
   "bin": {
     "batch-rollup": "bin/index.js"
   },
-  "homepage": "https://pnpm.io",
+  "homepage": "https://github.com/cjinhuo/thrift-to-json-schema",
   "repository": "",
   "bugs": {
-    "url": "https://github.com/pnpm/pnpm/issues"
+    "url": "https://github.com/cjinhuo/thrift-to-json-schema/issues"
   },
   "devDependencies": {
     "execa": "^6.1.0",

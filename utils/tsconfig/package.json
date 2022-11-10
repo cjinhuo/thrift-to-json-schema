@@ -10,9 +10,9 @@
   },
   "license": "MIT",
   "main": "tsconfig.json",
-  "homepage": "https://pnpm.io",
+  "homepage": "https://github.com/cjinhuo/thrift-to-json-schema",
   "repository": "",
   "bugs": {
-    "url": "https://github.com/pnpm/pnpm/issues"
+    "url": "https://github.com/cjinhuo/thrift-to-json-schema/issues"
   }
 }

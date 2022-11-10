@@ -7,8 +7,7 @@ To run the test suite and our code linter, node.js and pnpm are required.
 [`pnpm` download](https://pnpm.io/)
 
 ```
-$ pnpm
-$ pnpm build
+$ pnpm i
 ```
 
 ## local debug

@@ -21,7 +21,7 @@ const IconGithubWrapper = styled(IconGithub)`
   font-size: 18px;
   cursor: pointer;
   &:hover {
-    background-color: #ececec;
+    background-color: #585858;
   }
 `
 
@@ -30,13 +30,13 @@ const IconLinkWrapper = styled(IconLink)`
   cursor: pointer;
   margin-left: 16px;
   &:hover {
-    background-color: #ececec;
+    background-color: #585858;
   }
 `
 const TooltipWrapper = styled(Tooltip)`
-  .arco-tooltip-content-inner {
+  /* .arco-tooltip-content-inner {
     color: black !important;
-  }
+  } */
 `
 export default function HeaderContent() {
   return (
@@ -56,7 +56,7 @@ function RightIcons() {
   return (
     <div>
       <IconGithubWrapper onClick={onClickGithubIcon} />
-      <TooltipWrapper color='white' content='validator'>
+      <TooltipWrapper content='validator'>
         <IconLinkWrapper onClick={onClickLinkIcon} />
       </TooltipWrapper>
     </div>

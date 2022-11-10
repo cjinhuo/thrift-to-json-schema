@@ -46,6 +46,7 @@ export default function GoEditor() {
     <Container className='go-gggg'>
       <CodeMirror
         value={structString}
+        theme='dark'
         height='100%'
         extensions={[StreamLanguage.define(go)]}
         onChange={onChange}

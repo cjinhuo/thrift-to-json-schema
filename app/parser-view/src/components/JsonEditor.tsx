@@ -23,7 +23,7 @@ export default function JsonEditor() {
   }, [goContent])
   return (
     <Container>
-      <CodeMirror value={jsonSchema} extensions={[json()]}></CodeMirror>
+      <CodeMirror value={jsonSchema} theme='dark' extensions={[json()]}></CodeMirror>
     </Container>
   )
 }

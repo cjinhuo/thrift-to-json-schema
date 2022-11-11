@@ -1,18 +1,22 @@
 # overview
+thrift to JSON schema
 
-thrift to json
+# install
+`pnpm add @trasm/thrift-jsma`
 
-requires at least Node 16.18.0 and Pnpm 7 to run
-## install
-`pnpm i`
-
-## build
-### esm
-`pnpm esm`
-
-### rollup
-`pnpm batch-rollup`
-
-### expectation
-
+# usage
+```js
+import { parseThriftToJsonSchema } from '@trasm/thrift-jsma'
+  const structString = `
+    struct EmptyStruct {
+    string field_string
+    double field_double
+    i32 field_i32
+    i64 field_i64
+    bool field_bool
+    optional string field_optional_string
+    }
+  `
+  const jsonSchema = parseThriftToJsonSchema(structString)
+```
 

@@ -6,12 +6,18 @@ To run the test suite and our code linter, node.js and pnpm are required.
 [`node` download](https://nodejs.org/download)
 [`pnpm` download](https://pnpm.io/)
 
-```
-$ pnpm i
-```
 
-## local debug
-Generate sourcemap file and start a service in current directory.And import .js like `http:localhost:3000/folder/index.js` in your project.Then you can debug in chrome devtools with .ts file.
+
+## install
+> requires at least Node 16.18.0 and Pnpm 7 to run
+`pnpm i`
+
+## build
+### esm
+`pnpm esm`
+
+### rollup
+`pnpm batch-rollup`
 
 
 

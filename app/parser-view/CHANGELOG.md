@@ -1,5 +1,12 @@
 # @trasm/parser-view
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @trasm/thrift-jsma@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes

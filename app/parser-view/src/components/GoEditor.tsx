@@ -16,7 +16,9 @@ export default function GoEditor() {
       goContent: content,
     })
   }
-  const structString = `  struct EmptyStruct {
+  const structString = `  
+  // @flag header
+  struct EmptyStruct {
     string field_string // this is field_string description
     # @schema maxLength:66
     double field_double
@@ -51,7 +53,7 @@ export default function GoEditor() {
   })
 
   return (
-    <Container className='go-gggg'>
+    <Container>
       <CodeMirror
         value={structString}
         theme='dark'

@@ -17,7 +17,7 @@ export default function GoEditor() {
     })
   }
   const structString = `  
-  // @flag header
+  # @flag header
   struct EmptyStruct {
     string field_string // this is field_string description
     # @schema maxLength:66

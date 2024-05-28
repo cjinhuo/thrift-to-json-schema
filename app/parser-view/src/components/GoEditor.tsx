@@ -32,6 +32,7 @@ export default function GoEditor() {
     optional map<string, i32> map_string_number
     PayloadStruct payload // field points to another struct
     map<string, PayloadStruct> map_nest_payload // map nests another struct
+    list<PayloadStruct> list_items
   }
   struct PayloadStruct {
     string field_string

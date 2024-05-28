@@ -10,6 +10,7 @@ const initBeingRefedArray = () => {
     fn: ($id: TSchema) => void
   ) => {
     // common.Common => namespace.structName
+    // todo 只取后面一个字段可能会有重叠问题，需修复
     const specialChar = '.'
     beingRefedArray.push([
       valueType.includes(specialChar) ? valueType.split(specialChar).pop()! : valueType,

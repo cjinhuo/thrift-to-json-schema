@@ -68,3 +68,28 @@ test('should work with mapType', () => {
   })
   expect(typeBox).toEqual(expectedTypeBox)
 })
+
+test('should work with enum type', () => {
+  const structString = `
+  # @flag header
+  struct test_struct {
+    Color test_color
+    map<string, Color> map_enum
+  }
+  enum Color {
+    RED = 1
+    GREEN = 2
+  }
+  `
+  const typeBox = parseThriftToTypeBox(structString)
+  const expectedTypeBox = Type.Partial(
+    Type.Object({
+      test_color: Type.Enum({
+        RED: 1,
+        GREEN: 2,
+      }),
+      map_enum: Type.Record(Type.String(), Type.Enum({ RED: 1, GREEN: 2 })),
+    })
+  )
+  expect(JSON.stringify(typeBox)).toEqual(JSON.stringify(expectedTypeBox))
+})

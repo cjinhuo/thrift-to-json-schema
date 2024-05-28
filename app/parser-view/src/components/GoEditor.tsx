@@ -32,11 +32,19 @@ export default function GoEditor() {
     optional map<string, i32> map_string_number
     PayloadStruct payload // field points to another struct
     map<string, PayloadStruct> map_nest_payload // map nests another struct
+    list<PayloadStruct> list_items
+    Color color_enum
+    map<string, Color> map_with_enum
   }
   struct PayloadStruct {
     string field_string
     double field_double
-  }`
+  }
+  enum Color {
+    RED = 1
+    GREEN = 2
+  }
+  `
 
   setGoContent({
     goContent: structString,

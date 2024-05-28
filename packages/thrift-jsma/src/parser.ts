@@ -8,6 +8,8 @@ import {
   ThriftStatement,
   ListType,
   StructDefinition,
+  EnumDefinition,
+  EnumMember,
 } from '@creditkarma/thrift-parser'
 import { ObjectOptions, TSchema, Type } from '@sinclair/typebox'
 
@@ -40,15 +42,26 @@ export function parseThriftToTypeBox(thriftString: string, errFn?: (error: unkno
   }
 }
 
+// enum 也算一个 struct，因为它可以被嵌套
 function getStructMap(structDefinitions: StructDefinition[]) {
   return structDefinitions.reduce((accumulationMap, item) => {
-    const structTypeBox = Type.Object(
-      traverseFields(item.fields),
-      getRegularOptionByComments(item.comments)
-    )
+    const commentOption = getRegularOptionByComments(item.comments)
+    const structTypeBox =
+      item.type === SyntaxType.StructDefinition
+        ? // todo 动态更改 Type.object 会导致 require 失效
+          Type.Object(traverseFields(item.fields), commentOption)
+        : Type.Enum(scanEnumMembers((item as any as EnumDefinition).members), commentOption)
     accumulationMap.set(item.name.value, structTypeBox)
     return accumulationMap
   }, new Map() as StructMapType)
+}
+
+function scanEnumMembers(enumMembers: Array<EnumMember>): Record<string, number> {
+  return enumMembers.reduce((accumulationMap, item) => {
+    // 因为 enum 的值必须是 int32
+    accumulationMap[item.name.value] = Number(item.initializer!.value.value)
+    return accumulationMap
+  }, {})
 }
 
 /**
@@ -59,7 +72,7 @@ function getStructMap(structDefinitions: StructDefinition[]) {
 function traverseBody(thriftASTBody: Array<ThriftStatement | FieldDefinition>) {
   resetBeingRefedArray()
   const StructDefinitions = thriftASTBody.filter(
-    (item) => item.type === SyntaxType.StructDefinition
+    (item) => item.type === SyntaxType.StructDefinition || item.type === SyntaxType.EnumDefinition
   ) as StructDefinition[]
   if (!StructDefinitions.length) return Type.Any()
   const structMap = getStructMap(StructDefinitions)

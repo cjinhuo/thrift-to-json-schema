@@ -1,5 +1,12 @@
 # @trasm/parser-view
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`51cab7d`](https://github.com/cjinhuo/thrift-to-json-schema/commit/51cab7d83e20b9a3ea89e9224e13f1359b2087cf)]:
+  - @trasm/thrift-jsma@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes

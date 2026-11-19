@@ -1,38 +1,63 @@
 {
-  "name": "@trasm/thrift-jsma",
-  "version": "0.0.5",
-  "description": "@trasm/thrift-jsma",
-  "author": "cjinhuo",
-  "license": "MIT",
-  "main": "esm/index.js",
-  "module": "esm/index.js",
-  "types": "esm/index.d.ts",
-  "publishConfig": {
-    "access": "public",
-    "main": "esm/index.js",
-    "module": "esm/index.js",
-    "types": "esm/index.d.ts"
-  },
-  "type": "module",
-  "files": ["dist", "esm"],
-  "scripts": {
-    "dev": "run-s esm:watch build:watch",
-    "esm": "tsc -b ./tsconfig.json",
-    "esm:watch": "tsc -b -w ./tsconfig.json",
-    "lint": "eslint ./src/**",
-    "lintHelper": "eslint -h",
-    "test": "jest --config jest.config.cjs",
-    "build:cjs": "rollup -c ./rollups/cjs.rollup.mjs",
-    "build:watch": "rollup -c  ./rollups/cjs.rollup.mjs --watch",
-    "batch-rollup": "batch-rollup -f ./rollups"
-  },
-  "dependencies": {
-    "@trasm/shared": "workspace:*",
-    "@creditkarma/thrift-parser": "^2.0.0",
-    "@sinclair/typebox": "^0.25.2"
-  },
-  "devDependencies": {
-    "@trasm/rollup": "workspace:*",
-    "@trasm/tsconfig": "workspace:*"
-  }
+	"name": "@trasm/thrift-jsma",
+	"version": "0.0.5",
+	"description": "Thrift to JSON Schema and TypeBox converter",
+	"author": "cjinhuo",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"module": "./dist/index.esm.js",
+	"types": "./dist/index.d.ts",
+	"publishConfig": {
+		"access": "public"
+	},
+	"type": "commonjs",
+	"files": [
+		"dist",
+		"esm",
+		"src/**/*.ts",
+		"!src/**/*.spec.ts"
+	],
+	"scripts": {
+		"build": "vite build && vite build --mode standalone && tsc -p tsconfig.build.json && node ../../scripts/finalize-library.mjs",
+		"esm": "pnpm build",
+		"watch:esm": "pnpm --workspace-root watch:esm",
+		"build:cjs": "pnpm build",
+		"typecheck": "tsc -p tsconfig.json",
+		"test": "pnpm --workspace-root exec vitest run --project thrift-jsma",
+		"lint": "biome check src",
+		"batch-rollup": "pnpm build",
+		"dev": "pnpm watch:esm",
+		"esm:watch": "pnpm watch:esm",
+		"build:watch": "pnpm watch:esm"
+	},
+	"dependencies": {
+		"@trasm/shared": "workspace:*",
+		"@creditkarma/thrift-parser": "catalog:",
+		"@sinclair/typebox": "catalog:"
+	},
+	"devDependencies": {
+		"@trasm/tsconfig": "workspace:*"
+	},
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./dist/index.esm.js": {
+			"types": "./dist/index.d.mts",
+			"default": "./dist/index.mjs"
+		},
+		"./dist/*": "./dist/*",
+		"./package.json": "./package.json",
+		"./esm": "./esm/index.js",
+		"./esm/*.js": "./esm/*.js",
+		"./esm/*.d.ts": "./esm/*.d.ts",
+		"./esm/*": "./esm/*.js"
+	}
 }

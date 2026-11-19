@@ -1,0 +1,55 @@
+name: Release Beta NPM Package
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  CHANGESET_READ_REPO_TOKEN: ${{ secrets.CHANGESET_READ_REPO_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .node-version
+          registry-url: https://registry.npmjs.org
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.1
+        with:
+          version: 12.16.1
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install browser runtimes
+        run: pnpm --filter @trasm/e2e exec playwright install --with-deps chromium firefox webkit
+      - name: Verify workspace
+        run: pnpm verify
+      - name: Verify npm access
+        run: npm whoami
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git branch --set-upstream-to="origin/$GITHUB_REF_NAME" "$GITHUB_REF_NAME"
+      - name: Bump beta version
+        run: pnpm changeset_version --beta --git-push
+      - name: Rebuild versioned packages
+        run: pnpm build
+      - name: Publish beta release
+        uses: changesets/action/publish@v2
+        with:
+          script: pnpm changeset_publish
+          github-token: ${{ secrets.GITHUB_TOKEN }}

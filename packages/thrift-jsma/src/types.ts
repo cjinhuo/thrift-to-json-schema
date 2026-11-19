@@ -1,13 +1,13 @@
-import { NumericOptions, TSchema } from '@sinclair/typebox'
+import type { NumericOptions, TSchema } from '@sinclair/typebox'
 
-import { MapPositionType } from './constants'
+import type { MapPositionType } from './constants.js'
 
 export type MapAnySchema = Record<string, TSchema>
 
 export interface BeingRefItemType {
-  // string => fieldType.value eg:HttpPayload
-  fieldValue: string
-  fn: ($id: TSchema) => void
+	// string => fieldType.value eg:HttpPayload
+	fieldValue: string
+	fn: ($id: TSchema) => void
 }
 
 export type BeingRefedArrayPushType = (valueType: string, fn: ($id: TSchema) => void) => void
@@ -20,9 +20,9 @@ export type BasicTypeBox = (options?: NumericOptions) => TSchema
 export type ParsedDslValueType = string | number | string[] | Record<string, string>
 
 export interface BasicDslToObjType {
-  key: string
-  value: ParsedDslValueType
+	key: string
+	value: ParsedDslValueType
 }
 export interface MapTypeBasicDslToObjType extends BasicDslToObjType {
-  position: MapPositionType
+	position: MapPositionType
 }

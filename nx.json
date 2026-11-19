@@ -1,0 +1,31 @@
+{
+	"$schema": "./node_modules/nx/schemas/nx-schema.json",
+	"targetDefaults": {
+		"build": {
+			"dependsOn": ["^build"],
+			"cache": true,
+			"outputs": ["{projectRoot}/dist", "{projectRoot}/esm"],
+			"inputs": ["default", "^default"]
+		},
+		"typecheck": {
+			"dependsOn": ["^build"],
+			"cache": true
+		}
+	},
+	"namedInputs": {
+		"default": [
+			"{projectRoot}/**/*",
+			"!{projectRoot}/dist/**/*",
+			"!{projectRoot}/esm/**/*",
+			"!{projectRoot}/node_modules/**/*",
+			"sharedGlobals"
+		],
+		"sharedGlobals": [
+			"{workspaceRoot}/pnpm-lock.yaml",
+			"{workspaceRoot}/utils/tsconfig/**/*",
+			"{workspaceRoot}/utils/vite/**/*",
+			"{workspaceRoot}/scripts/finalize-library.mjs",
+			"{workspaceRoot}/.node-version"
+		]
+	}
+}

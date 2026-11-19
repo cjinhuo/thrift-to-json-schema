@@ -1,24 +1,17 @@
-# Contributing Guide
+# Contributing
 
-## Setting up an Enviroment
-To run the test suite and our code linter, node.js and pnpm are required.
+Use the Node.js version in `.nvmrc` and the pnpm version in the root `package.json`. Install workspace dependencies and browser runtimes before running the checks.
 
-[`node` download](https://nodejs.org/download)
-[`pnpm` download](https://pnpm.io/)
+```sh
+pnpm install --frozen-lockfile
+pnpm --filter @trasm/e2e exec playwright install chromium firefox webkit
+pnpm verify
+```
 
+Use `pnpm web:dev` for the parser demo and `pnpm test:watch` while editing the SDK. Keep shared dependency versions in the pnpm catalog and commit the root lockfile. Husky runs Biome against staged files and checks Conventional Commit messages.
 
+## Releases
 
-## install
-> requires at least Node 16.18.0 and Pnpm 7 to run
-`pnpm i`
+Changes to the public packages `@trasm/shared` and `@trasm/thrift-jsma` that affect consumers need a changeset. Run `pnpm changeset` to add one and `pnpm changeset:status` to inspect the release plan.
 
-## build
-### esm
-`pnpm esm`
-
-### rollup
-`pnpm batch-rollup`
-
-
-
-
+Stable and beta npm releases use the manually triggered GitHub Actions workflows. Configure the repository's npm publishing token as `NPM_TOKEN` for these workflows. The Pages workflow builds the demo on pushes to `master`.

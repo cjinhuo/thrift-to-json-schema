@@ -1,0 +1,14 @@
+{
+	"name": "@trasm/e2e",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"e2e": "playwright test",
+		"typecheck": "tsc --noEmit"
+	},
+	"devDependencies": {
+		"@playwright/test": "catalog:",
+		"@types/node": "catalog:"
+	}
+}

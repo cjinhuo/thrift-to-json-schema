@@ -1,7 +1,8 @@
-import { parseThriftToTypeBox } from './parser'
+import { parseThriftToTypeBox } from './parser.js'
+
 export { parseThriftToTypeBox }
 export function parseThriftToJsonSchema(thriftString: string, errFn?: (error: unknown) => void) {
-  const typeBox = parseThriftToTypeBox(thriftString, errFn)
-  if (typeBox) return JSON.stringify(typeBox)
-  return ''
+	const typeBox = parseThriftToTypeBox(thriftString, errFn)
+	if (typeBox) return JSON.stringify(typeBox)
+	return ''
 }

@@ -1,21 +1,56 @@
 {
-  "name": "@trasm/shared",
-  "version": "0.0.2",
-  "description": "@trasm/shared",
-  "author": "cjinhuo",
-  "license": "MIT",
-  "main": "src/index.ts",
-  "module": "esm/index.js",
-  "types": "esm/index.d.ts",
-  "publishConfig": {
-    "access": "public",
-    "main": "esm/index.js",
-    "module": "esm/index.js",
-    "types": "esm/index.d.ts"
-  },
-  "files": ["dist", "esm"],
-  "scripts": {
-    "esm": "tsc -b ./tsconfig.json",
-    "test": "jest --config jest.config.cjs"
-  }
+	"name": "@trasm/shared",
+	"version": "0.0.2",
+	"description": "Shared utilities for @trasm packages",
+	"author": "cjinhuo",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"module": "./dist/index.esm.js",
+	"types": "./dist/index.d.ts",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist",
+		"esm",
+		"src/**/*.ts",
+		"!src/**/*.spec.ts"
+	],
+	"scripts": {
+		"build": "vite build && vite build --mode standalone && tsc -p tsconfig.build.json && node ../../scripts/finalize-library.mjs",
+		"esm": "pnpm build",
+		"watch:esm": "pnpm --workspace-root watch:esm",
+		"build:cjs": "pnpm build",
+		"typecheck": "tsc -p tsconfig.json",
+		"test": "pnpm --workspace-root exec vitest run --project shared",
+		"lint": "biome check src"
+	},
+	"type": "commonjs",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./dist/index.esm.js": {
+			"types": "./dist/index.d.mts",
+			"default": "./dist/index.mjs"
+		},
+		"./dist/*": "./dist/*",
+		"./package.json": "./package.json",
+		"./esm": "./esm/index.js",
+		"./esm/*.js": "./esm/*.js",
+		"./esm/*.d.ts": "./esm/*.d.ts",
+		"./esm/*": "./esm/*.js",
+		"./src/index.ts": "./src/index.ts",
+		"./src/index": "./src/index.ts"
+	},
+	"devDependencies": {
+		"@trasm/tsconfig": "workspace:*"
+	}
 }

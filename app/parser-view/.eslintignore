@@ -1,7 +1,0 @@
-/node_modules
-/dist
-/doc
-**/dist
-**/build
-**/esm
-# rollup.config.js

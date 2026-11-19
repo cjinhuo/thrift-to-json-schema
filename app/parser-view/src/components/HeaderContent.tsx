@@ -1,7 +1,7 @@
+import { Tooltip } from '@arco-design/web-react'
+import { IconGithub, IconLink } from '@arco-design/web-react/icon'
 import styled from '@emotion/styled'
 import parser from '../assets/parser.svg'
-import { IconGithub, IconLink } from '@arco-design/web-react/icon'
-import { Tooltip } from '@arco-design/web-react'
 
 const Container = styled.div`
   width: 100%;
@@ -41,26 +41,26 @@ const TooltipWrapper = styled(Tooltip)`
   } */
 `
 export default function HeaderContent() {
-  return (
-    <Container>
-      <ImgWrapper src={parser}></ImgWrapper>
-      <RightIcons></RightIcons>
-    </Container>
-  )
+	return (
+		<Container>
+			<ImgWrapper src={parser} />
+			<RightIcons />
+		</Container>
+	)
 }
 function RightIcons() {
-  const onClickGithubIcon = () => {
-    window.open('https://github.com/cjinhuo/thrift-to-json-schema')
-  }
-  const onClickLinkIcon = () => {
-    window.open('https://www.jsonschemavalidator.net')
-  }
-  return (
-    <div>
-      <IconGithubWrapper onClick={onClickGithubIcon} />
-      <TooltipWrapper content='validator'>
-        <IconLinkWrapper onClick={onClickLinkIcon} />
-      </TooltipWrapper>
-    </div>
-  )
+	const onClickGithubIcon = () => {
+		window.open('https://github.com/cjinhuo/thrift-to-json-schema')
+	}
+	const onClickLinkIcon = () => {
+		window.open('https://www.jsonschemavalidator.net')
+	}
+	return (
+		<div>
+			<IconGithubWrapper onClick={onClickGithubIcon} />
+			<TooltipWrapper content='validator'>
+				<IconLinkWrapper onClick={onClickLinkIcon} />
+			</TooltipWrapper>
+		</div>
+	)
 }

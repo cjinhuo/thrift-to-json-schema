@@ -1,22 +1,23 @@
-import styled from '@emotion/styled'
-import CodeMirror from '@uiw/react-codemirror'
 import { StreamLanguage } from '@codemirror/language'
 import { go } from '@codemirror/legacy-modes/mode/go'
+import styled from '@emotion/styled'
+import CodeMirror from '@uiw/react-codemirror'
 import { useSetAtom } from 'jotai'
 import { EditorAtom } from '../atoms'
+
 const Container = styled.div`
   height: 100%;
   max-height: calc(100vh - 100px);
   overflow: scroll;
 `
 export default function GoEditor() {
-  const setGoContent = useSetAtom(EditorAtom)
-  const onChange = (content: string) => {
-    setGoContent({
-      goContent: content,
-    })
-  }
-  const structString = `  
+	const setGoContent = useSetAtom(EditorAtom)
+	const onChange = (content: string) => {
+		setGoContent({
+			goContent: content,
+		})
+	}
+	const structString = `
   # @flag header
   struct EmptyStruct {
     string field_string // this is field_string description
@@ -48,19 +49,19 @@ export default function GoEditor() {
   }
   `
 
-  setGoContent({
-    goContent: structString,
-  })
+	setGoContent({
+		goContent: structString,
+	})
 
-  return (
-    <Container>
-      <CodeMirror
-        value={structString}
-        theme='dark'
-        height='100%'
-        extensions={[StreamLanguage.define(go)]}
-        onChange={onChange}
-      />
-    </Container>
-  )
+	return (
+		<Container>
+			<CodeMirror
+				value={structString}
+				theme='dark'
+				height='100%'
+				extensions={[StreamLanguage.define(go)]}
+				onChange={onChange}
+			/>
+		</Container>
+	)
 }

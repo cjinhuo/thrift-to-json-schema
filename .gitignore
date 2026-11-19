@@ -1,31 +1,30 @@
+# env
 .DS_Store
+.tmp
+.nx
+.idea
+
+# npm
 node_modules
+.pnpm-store/
+
+# ts
+tsconfig.tsbuildinfo
 
 # test
 coverage
-.idea
+
 # analyzer
 analyzer.html
 
-packages/*/dist
-packages/*/node_modules
-
-
-# Coverage directory used by tools like istanbul
-coverage
-
-.tmp
-_docpress
-
-
-tsconfig.tsbuildinfo
-
-# Visual Studio Code configs
-.vscode/
-
 # output dir
+_docpress
 temp
-dist
 docs
+dist
 lib
 esm
+
+# Browser test reports
+playwright-report/
+test-results/

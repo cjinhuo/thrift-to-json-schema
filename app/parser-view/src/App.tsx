@@ -1,9 +1,10 @@
 import { Layout } from '@arco-design/web-react'
 import styled from '@emotion/styled'
-import HeaderContent from './components/HeaderContent'
-import FooterContent from './components/FooterContent'
-import MainContent from './components/MainContent'
 import { useEffect } from 'react'
+import FooterContent from './components/FooterContent'
+import HeaderContent from './components/HeaderContent'
+import MainContent from './components/MainContent'
+
 const LayoutWrapper = styled(Layout)`
   height: 100%;
 `
@@ -25,24 +26,24 @@ const Content = styled(Layout.Content)`
   padding: 12px;
 `
 function App() {
-  useEffect(() => {
-    document.body.setAttribute('arco-theme', 'dark')
-  }, [])
-  return (
-    <div className='App'>
-      <LayoutWrapper>
-        <Header>
-          <HeaderContent></HeaderContent>
-        </Header>
-        <Content>
-          <MainContent></MainContent>
-        </Content>
-        <Footer>
-          <FooterContent></FooterContent>
-        </Footer>
-      </LayoutWrapper>
-    </div>
-  )
+	useEffect(() => {
+		document.body.setAttribute('arco-theme', 'dark')
+	}, [])
+	return (
+		<div className='App'>
+			<LayoutWrapper>
+				<Header>
+					<HeaderContent />
+				</Header>
+				<Content>
+					<MainContent />
+				</Content>
+				<Footer>
+					<FooterContent />
+				</Footer>
+			</LayoutWrapper>
+		</div>
+	)
 }
 
 export default App

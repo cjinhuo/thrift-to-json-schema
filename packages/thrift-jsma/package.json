@@ -36,7 +36,8 @@
 		"@sinclair/typebox": "catalog:"
 	},
 	"devDependencies": {
-		"@trasm/tsconfig": "workspace:*"
+		"@trasm/tsconfig": "workspace:*",
+		"ajv": "catalog:"
 	},
 	"exports": {
 		".": {

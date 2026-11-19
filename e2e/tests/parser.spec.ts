@@ -14,6 +14,10 @@ for (const [mode, url] of [
 		await editors.first().fill('struct User {\n  1: string nickname\n  # @schema maxLength:4 * 8\n}')
 		await expect(editors.last()).toContainText('"nickname"')
 		await expect(editors.last()).toContainText(/"maxLength":\s*32\b/)
+		await editors.first().fill('struct FlexFilter { 1: string type, 5: list<FlexFilter> sub_conditions }')
+		await expect(editors.last()).toContainText('"$ref"')
+		const schema = JSON.parse((await editors.last().textContent()) ?? '')
+		expect(schema.properties.sub_conditions.items.$ref).toBe(schema.$id)
 	})
 }
 

@@ -24,6 +24,7 @@ catalog:
   "@uiw/react-codemirror": "4.12.4"
   "@vitejs/plugin-react": "6.2.1"
   "@vitest/coverage-v8": "5.1.0"
+  "ajv": "8.11.0"
   "changesets-toolkit": "0.1.0"
   "czg": "1.14.0"
   "fast-glob": "3.3.3"

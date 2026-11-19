@@ -5,11 +5,38 @@
     <link rel="icon" type="image/png" href="%BASE_URL%studio-mark.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f7f7f9" />
-    <meta name="description" content="编辑 Thrift 定义，实时生成 JSON Schema，并使用 TypeBox 校验样例数据。" />
-    <title>Schema Studio · Thrift SDK 演练场</title>
+    <title>Thrift 转 JSON Schema 在线转换器与校验工具｜Schema Studio</title>
+    <meta name="description" content="在线编辑 Apache Thrift IDL，实时生成 JSON Schema，用 TypeBox 校验样例数据，并查看 TypeScript SDK 的安装和调用示例。" />
+    <link rel="canonical" href="https://cjinhuo.github.io/thrift-to-json-schema/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:url" content="https://cjinhuo.github.io/thrift-to-json-schema/" />
+    <meta property="og:title" content="Thrift 转 JSON Schema 在线转换器与校验工具｜Schema Studio" />
+    <meta property="og:description" content="在线编辑 Apache Thrift IDL，实时生成 JSON Schema，用 TypeBox 校验样例数据，并查看 TypeScript SDK 的安装和调用示例。" />
+    <meta property="og:image" content="https://cjinhuo.github.io/thrift-to-json-schema/schema-preview.webp" />
+    <meta property="og:image:alt" content="Thrift 的 User 结构与生成的 JSON Schema" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Thrift 转 JSON Schema 在线转换器与校验工具｜Schema Studio" />
+    <meta name="twitter:description" content="在线编辑 Apache Thrift IDL，实时生成 JSON Schema，用 TypeBox 校验样例数据，并查看 TypeScript SDK 的安装和调用示例。" />
+    <meta name="twitter:image" content="https://cjinhuo.github.io/thrift-to-json-schema/schema-preview.webp" />
+    <meta name="twitter:image:alt" content="Thrift 的 User 结构与生成的 JSON Schema" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main class="wrap">
+        <h1>Thrift 转 JSON Schema 在线转换器</h1>
+        <p>编辑 Apache Thrift 定义，生成 JSON Schema，再用样例数据验证字段约束。</p>
+        <h2>转换示例</h2>
+        <pre><code>struct User { 1: required string name }</code></pre>
+        <p>生成的 Schema 要求对象包含字符串字段 <code>name</code>。</p>
+        <pre><code>{"type":"object","properties":{"name":{"type":"string"}},"required":["name"]}</code></pre>
+        <h2 id="sdk-usage">SDK 用法</h2>
+        <pre><code>pnpm add @trasm/thrift-jsma</code></pre>
+        <pre><code>import { parseThriftToJsonSchema } from '@trasm/thrift-jsma'
+const schema = parseThriftToJsonSchema('struct User { 1: required string name }')</code></pre>
+        <p><a href="https://github.com/cjinhuo/thrift-to-json-schema#usage">查看 SDK 文档和 TypeBox 校验示例</a></p>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

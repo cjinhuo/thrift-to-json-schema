@@ -1,5 +1,5 @@
 import { type Comment, type EnumDefinition, type StructDefinition, SyntaxType } from '@creditkarma/thrift-parser'
-import { type NumericOptions, type TSchema, Type } from '@sinclair/typebox'
+import { type TNumberOptions, type TSchema, Type } from 'typebox'
 
 import { FlagTypes, type MapPositionType, NumericalKeywordMap } from './constants.js'
 import { getGroupsWithReg, SplitSchemaColonReg, SplitSchemaDotReg } from './reg.js'
@@ -11,20 +11,20 @@ export const getBasicTypeBoxWithSyntaxType = (syntaxType: SyntaxType): BasicType
 		case SyntaxType.I16Keyword:
 		case SyntaxType.I32Keyword:
 		case SyntaxType.I64Keyword:
-			return Type.Integer.bind(Type)
+			return Type.Integer
 		case SyntaxType.DoubleKeyword:
-			return Type.Number.bind(Type)
+			return Type.Number
 		case SyntaxType.StringKeyword:
-			return Type.String.bind(Type)
+			return Type.String
 		case SyntaxType.BoolKeyword:
-			return Type.Boolean.bind(Type)
+			return Type.Boolean
 		default:
-			return Type.Any.bind(Type)
+			return Type.Any
 	}
 }
 
 export const getTypeBoxOptionWithNumericalKeyword = (numericalKeyword: SyntaxType) => {
-	const options: Partial<Record<SyntaxType, NumericOptions>> = NumericalKeywordMap
+	const options: Partial<Record<SyntaxType, TNumberOptions>> = NumericalKeywordMap
 	return options[numericalKeyword] ?? {}
 }
 

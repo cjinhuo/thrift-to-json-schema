@@ -19,7 +19,8 @@
 		"test:packages": "node --test scripts/verify-packages.mjs",
 		"test:e2e": "pnpm --filter @trasm/e2e exec playwright test",
 		"test:release": "node --test scripts/verify-release.mjs",
-		"verify": "pnpm lint && pnpm typecheck && pnpm test:coverage && pnpm build && pnpm test:packages && pnpm test:e2e && pnpm test:release",
+		"verify": "pnpm lint && pnpm typecheck && pnpm test:coverage && pnpm verify:integration",
+		"verify:integration": "pnpm build && pnpm test:packages && pnpm test:e2e && pnpm test:release",
 		"web:dev": "pnpm --filter @trasm/parser-view dev",
 		"clean": "node scripts/clean.mjs",
 		"changeset_version": "pnpm exec changeset_version",
@@ -59,7 +60,7 @@
 		"changesets-toolkit": "catalog:"
 	},
 	"type": "module",
-	"packageManager": "pnpm@12.16.1",
+	"packageManager": "pnpm@12.21.0",
 	"workspaces": [
 		"packages/*",
 		"utils/*",

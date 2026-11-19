@@ -13,17 +13,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # 单测单独回报状态，浏览器的安装与运行不会延迟单测结果。
+  unit-tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.1
+        with:
+          version: 12.21.0
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Run Vitest with coverage
+        run: pnpm test:coverage
+
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: pnpm/action-setup@v6.1.1
         with:
-          version: 12.16.1
+          version: 12.21.0
       - uses: actions/setup-node@v7.1.0
         with:
           node-version-file: .node-version
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
       - run: pnpm --filter @trasm/e2e exec playwright install --with-deps chromium firefox webkit
-      - run: pnpm verify
+      - name: Build and run integration checks
+        run: pnpm verify:integration

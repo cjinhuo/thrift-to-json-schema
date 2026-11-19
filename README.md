@@ -2,9 +2,9 @@
 
 Convert Thrift structs to JSON Schema or a TypeBox schema in TypeScript.
 
-[Try the online parser](https://cjinhuo.github.io/thrift-to-json-schema/)
+![A Thrift User struct and its generated JSON Schema, both declaring name as a required string](./assets/thrift-to-json-schema.webp)
 
-![Thrift parser demo](./assets/parse.jpeg)
+Explore fields, collections and enums, recursive references, and annotation constraints in [Schema Studio](https://cjinhuo.github.io/thrift-to-json-schema/). Edit any Thrift example to see the generated JSON Schema, then try valid and invalid JSON payloads against it.
 
 ## Install
 
@@ -36,12 +36,12 @@ The legacy `@schema` syntax evaluates JavaScript expressions. Use trusted Thrift
 
 ## Development
 
-Use Node.js **24.22.2** and pnpm **12.16.1**. The workspace uses Nx to build the two SDK packages and the React editor in dependency order.
+Use Node.js **24.22.2** and pnpm **12.21.0**. The workspace uses Nx to build the two SDK packages and the React editor in dependency order.
 
 ```sh
 nvm install
 nvm use
-npm install --global --allow-scripts=pnpm pnpm@12.16.1
+npm install --global --allow-scripts=pnpm pnpm@12.21.0
 pnpm install --frozen-lockfile
 pnpm web:dev
 ```

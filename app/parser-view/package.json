@@ -14,14 +14,14 @@
 		"@codemirror/lang-json": "catalog:",
 		"@codemirror/language": "catalog:",
 		"@codemirror/legacy-modes": "catalog:",
-		"@emotion/react": "catalog:",
-		"@emotion/styled": "catalog:",
+		"@fontsource-variable/bricolage-grotesque": "catalog:",
+		"@fontsource/ibm-plex-mono": "catalog:",
+		"@lezer/highlight": "catalog:",
 		"@trasm/thrift-jsma": "workspace:*",
 		"@uiw/react-codemirror": "catalog:",
-		"jotai": "catalog:",
-		"normalize.css": "catalog:",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"typebox": "catalog:"
 	},
 	"devDependencies": {
 		"@types/react": "catalog:",

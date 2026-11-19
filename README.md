@@ -2,9 +2,9 @@
 
 Convert Thrift structs to JSON Schema or a TypeBox schema in TypeScript.
 
-[Try the online parser](https://cjinhuo.github.io/thrift-to-json-schema/)
+Explore fields, collections and enums, recursive references, and annotation constraints in [Schema Studio](https://cjinhuo.github.io/thrift-to-json-schema/). Edit any Thrift example to see the generated JSON Schema, then try valid and invalid JSON payloads against it.
 
-![Thrift parser demo](./assets/parse.jpeg)
+![Schema Studio showing a Thrift definition alongside its generated JSON Schema](./assets/parse.jpeg)
 
 ## Install
 

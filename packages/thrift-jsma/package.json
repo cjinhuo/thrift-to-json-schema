@@ -18,7 +18,7 @@
 		"!src/**/*.spec.ts"
 	],
 	"scripts": {
-		"build": "vite build && vite build --mode standalone && tsc -p tsconfig.build.json && node ../../scripts/finalize-library.mjs",
+		"build": "vite build && vite build --mode commonjs && vite build --mode standalone && tsc -p tsconfig.build.json && node ../../scripts/finalize-library.mjs",
 		"esm": "pnpm build",
 		"watch:esm": "pnpm --workspace-root watch:esm",
 		"build:cjs": "pnpm build",
@@ -33,7 +33,7 @@
 	"dependencies": {
 		"@trasm/shared": "workspace:*",
 		"@creditkarma/thrift-parser": "catalog:",
-		"@sinclair/typebox": "catalog:"
+		"typebox": "catalog:"
 	},
 	"devDependencies": {
 		"@trasm/tsconfig": "workspace:*",

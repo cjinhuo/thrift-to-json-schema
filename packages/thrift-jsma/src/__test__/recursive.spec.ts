@@ -1,6 +1,6 @@
-import { TypeCompiler } from '@sinclair/typebox/compiler'
-import { Value } from '@sinclair/typebox/value'
 import Ajv from 'ajv'
+import { Compile } from 'typebox/compile'
+import { Value } from 'typebox/value'
 import { expect, test } from 'vitest'
 
 import { beingRefedArrayPush, getRefedArray, resetBeingRefedArray } from '../global'
@@ -18,9 +18,11 @@ function validators(source: string) {
 	if (!schema) throw new Error('Expected a TypeBox schema')
 	expect(JSON.parse(json)).toEqual(JSON.parse(JSON.stringify(schema)))
 	const validateJson = new Ajv().compile(JSON.parse(json))
+	const compiled = Compile(schema)
 	return (value: unknown, expected: boolean) => {
 		expect(validateJson(value)).toBe(expected)
 		expect(Value.Check(schema, value)).toBe(expected)
+		expect(compiled.Check(value)).toBe(expected)
 	}
 }
 
@@ -58,7 +60,7 @@ test('supports direct self references and required fields that point to a forwar
 test('compiles generated recursive types with the TypeBox compiler shipped by the SDK', () => {
 	const schema = parseThriftToTypeBox(flexFilter)
 	if (!schema) throw new Error('Expected a TypeBox schema')
-	const compiled = TypeCompiler.Compile(schema)
+	const compiled = Compile(schema)
 	expect(compiled.Check({ type: 'group', sub_conditions: [{ type: 'leaf' }] })).toBe(true)
 	expect(compiled.Check({ type: 'group', sub_conditions: [{ type: 2 }] })).toBe(false)
 })
@@ -72,7 +74,7 @@ test('validates recursive set elements reached through a map', () => {
 test('keeps acyclic references inline and previously returned schemas independent of later calls', () => {
 	const first = parseThriftToTypeBox('struct A { 1: B child } struct B { 1: string text }')
 	const before = JSON.stringify(first)
-	expect(first?.properties.child.properties.text.type).toBe('string')
+	expect(first).toMatchObject({ properties: { child: { properties: { text: { type: 'string' } } } } })
 	expect(before).not.toContain('"$ref"')
 	parseThriftToTypeBox('struct Other { 1: bool value }')
 	expect(JSON.stringify(first)).toBe(before)

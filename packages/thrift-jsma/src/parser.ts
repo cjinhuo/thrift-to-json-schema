@@ -7,9 +7,10 @@ import {
 	type StructDefinition,
 	SyntaxType,
 } from '@creditkarma/thrift-parser'
-import { type SchemaOptions, type TSchema, Type } from '@sinclair/typebox'
+import { type TSchema, type TSchemaOptions, Type } from 'typebox'
 
 import { MapPositionType } from './constants.js'
+import type { ThriftSchema } from './types.js'
 import {
 	getBasicTypeBoxWithSyntaxType,
 	getDescriptionByComments,
@@ -23,31 +24,24 @@ import {
 type Definition = StructDefinition | EnumDefinition
 
 // 引用的标识属于当前文档。相同输入生成稳定的标识，不同文件可以使用相同的结构名。
-function referencePrefix(source: string, definitions: Definition[]) {
+function referencePrefix(source: string) {
 	let hash = 2166136261
 	for (let i = 0; i < source.length; i++) hash = Math.imul(hash ^ source.charCodeAt(i), 16777619)
 	const key = (hash >>> 0).toString(36)
-	const declaresId = (comments: Comment[]) =>
-		getSchemaContents(comments).some((annotation) => /^(?:(?:options|value)\.)?\$id\s*:/.test(annotation))
-	const hasSchemaId = definitions.some(
-		(definition) =>
-			declaresId(definition.comments) ||
-			(definition.type === SyntaxType.StructDefinition && definition.fields.some((field) => declaresId(field.comments)))
-	)
-	// TypeBox 0.25 将生成的标识用作函数名。若输入自带 $id，则需用绝对 URI 跨越不同的引用基址。
-	return hasSchemaId ? `urn:thrift:${key}:` : `Thrift_${key}_`
+	// 使用绝对 URI，使跨越显式 $id 的嵌套引用仍能找到同一份定义。
+	return `urn:thrift:${key}:`
 }
 
-export function parseThriftToTypeBox(thriftString: string, errFn?: (error: unknown) => void): TSchema | undefined {
+export function parseThriftToTypeBox(thriftString: string, errFn?: (error: unknown) => void): ThriftSchema | undefined {
 	try {
 		const ast = parse(thriftString)
 		if (ast.type === SyntaxType.ThriftErrors) throw new Error(ast.errors.map((error) => error.message).join('\n'))
 		const definitions = ast.body.filter(
 			(node): node is Definition => node.type === SyntaxType.StructDefinition || node.type === SyntaxType.EnumDefinition
 		)
-		if (!definitions.length) return Type.Any()
-
-		return buildSchema(definitions, thriftString)
+		const schema = definitions.length ? buildSchema(definitions, thriftString) : Type.Any()
+		// TypeBox 1 的基础类型不声明动态字段，对外仍提供生成的 JSON Schema 字段类型。
+		return schema as ThriftSchema
 	} catch (error) {
 		errFn?.(error)
 	}
@@ -56,7 +50,7 @@ export function parseThriftToTypeBox(thriftString: string, errFn?: (error: unkno
 function buildSchema(definitions: Definition[], source: string): TSchema {
 	// 先索引声明，字段可以引用后面定义的类型。正在展开的结构只属于本次调用。
 	const declarations = new Map(definitions.map((definition) => [definition.name.value, definition]))
-	const active = new Map<string, TSchema>()
+	const active = new Map<string, TSchemaOptions>()
 	const inline = new Map<string, TSchema>()
 	const usedIds = new Set<string>()
 	let scope: string | undefined
@@ -64,7 +58,7 @@ function buildSchema(definitions: Definition[], source: string): TSchema {
 	let scopedUses = 0
 
 	function newId(name: string) {
-		scope ??= referencePrefix(source, definitions)
+		scope ??= referencePrefix(source)
 		return `${scope}${name.replace(/[^a-zA-Z0-9_]/g, '_')}_${nextId++}`
 	}
 
@@ -80,11 +74,11 @@ function buildSchema(definitions: Definition[], source: string): TSchema {
 			// 回到当前路径的祖先时，只引用它的 $id；直接嵌入对象会让 JSON.stringify 遇到环。
 			scopedUses++
 			ancestor.$id ??= newId(key)
-			return Type.Ref(ancestor)
+			return Type.Ref(ancestor.$id)
 		}
 
 		const before = scopedUses
-		const options: SchemaOptions = getRegularOptionByComments(target.comments)
+		const options: TSchemaOptions = getRegularOptionByComments(target.comments)
 		if (typeof options.$id === 'string') {
 			// 一个文档中每个 $id 只能声明一次。同一类型再次内联时使用独立标识。
 			scopedUses++
@@ -96,13 +90,12 @@ function buildSchema(definitions: Definition[], source: string): TSchema {
 		if (target.type === SyntaxType.EnumDefinition) {
 			schema = buildEnum(target, options)
 		} else {
-			schema = Type.Object({}, options)
-			active.set(key, schema)
+			// 只登记普通选项，子字段回指时可补上 $id；TypeBox 对象在字段就绪后一次构造。
+			active.set(key, options)
 			const properties: Record<string, TSchema> = Object.create(null)
 			for (const field of target.fields) properties[field.name.value] = buildField(field, resolve)
 			active.delete(key)
-			// Type.Object 在构造时计算 required，必须先解析完所有字段。
-			Object.assign(schema, Type.Object(properties))
+			schema = Type.Object(properties, options)
 		}
 		// 无环的子树可以复用；带有标识或回指祖先的子树只在当前位置有效。
 		if (scopedUses === before) inline.set(key, schema)
@@ -112,15 +105,19 @@ function buildSchema(definitions: Definition[], source: string): TSchema {
 	return resolve(getHeaderStructDefinition(definitions).name.value)
 }
 
-function buildEnum(definition: EnumDefinition, options: SchemaOptions) {
-	const members: Record<string, number> = Object.create(null)
+function buildEnum(definition: EnumDefinition, options: TSchemaOptions) {
+	const values: number[] = []
 	let next = 0
 	for (const member of definition.members) {
 		const value = member.initializer ? Number(member.initializer.value.value) : next
-		members[member.name.value] = value
+		values.push(value)
 		next = value + 1
 	}
-	return Type.Enum(members, options)
+	// 保留公开 JSON 中的 anyOf/const 枚举结构。
+	return Type.Union(
+		values.map((value) => Type.Literal(value)),
+		options
+	)
 }
 
 function buildField(field: FieldDefinition, resolve: (name: string) => TSchema): TSchema {
@@ -143,7 +140,7 @@ function buildField(field: FieldDefinition, resolve: (name: string) => TSchema):
 function buildType(
 	fieldType: FunctionType,
 	resolve: (name: string) => TSchema,
-	options: SchemaOptions = {},
+	options: TSchemaOptions = {},
 	comments: Comment[] = []
 ): TSchema {
 	switch (fieldType.type) {
@@ -154,7 +151,7 @@ function buildType(
 		case SyntaxType.SetType:
 			return Type.Array(buildType(fieldType.valueType, resolve), { ...options, uniqueItems: true })
 		case SyntaxType.MapType: {
-			const parts = new Map<MapPositionType, SchemaOptions>()
+			const parts = new Map<MapPositionType, TSchemaOptions>()
 			for (const annotation of getSchemaContents(comments)) {
 				const { position, key, value } = schemaMapTypeDslToObj(annotation)
 				parts.set(position, { ...parts.get(position), [key]: value })
@@ -164,7 +161,8 @@ function buildType(
 			const value = buildType(fieldType.valueType, resolve, parts.get(MapPositionType.value))
 			const recordOptions = { ...options, ...parts.get(MapPositionType.options) }
 			if (description) recordOptions.description = description
-			return Type.Record(key, value, recordOptions)
+			// 旧版本的 map 始终拒绝不匹配键模式的属性。
+			return Type.Record(key, value, { ...recordOptions, additionalProperties: false })
 		}
 		default:
 			return getBasicTypeBoxWithSyntaxType(fieldType.type)(options)

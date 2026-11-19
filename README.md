@@ -36,12 +36,12 @@ The legacy `@schema` syntax evaluates JavaScript expressions. Use trusted Thrift
 
 ## Development
 
-Use Node.js **24.22.2** and pnpm **12.16.1**. The workspace uses Nx to build the two SDK packages and the React editor in dependency order.
+Use Node.js **24.22.2** and pnpm **12.21.0**. The workspace uses Nx to build the two SDK packages and the React editor in dependency order.
 
 ```sh
 nvm install
 nvm use
-npm install --global --allow-scripts=pnpm pnpm@12.16.1
+npm install --global --allow-scripts=pnpm pnpm@12.21.0
 pnpm install --frozen-lockfile
 pnpm web:dev
 ```

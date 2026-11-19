@@ -1,5 +1,5 @@
 import { SyntaxType } from '@creditkarma/thrift-parser'
-import { Type } from '@sinclair/typebox'
+import { Type } from 'typebox'
 import { expect, test } from 'vitest'
 
 import { NumericalKeywordMap } from '../constants'
@@ -64,7 +64,8 @@ test('should work with mapType', () => {
 			}),
 			Type.String({
 				maxLength: 256,
-			})
+			}),
+			{ additionalProperties: false }
 		),
 	})
 	expect(typeBox).toEqual(expectedTypeBox)
@@ -83,14 +84,17 @@ test('should work with enum type', () => {
   }
   `
 	const typeBox = parseThriftToTypeBox(structString)
-	const expectedTypeBox = Type.Partial(
-		Type.Object({
-			test_color: Type.Enum({
-				RED: 1,
-				GREEN: 2,
-			}),
-			map_enum: Type.Record(Type.String(), Type.Enum({ RED: 1, GREEN: 2 })),
-		})
-	)
-	expect(JSON.stringify(typeBox)).toEqual(JSON.stringify(expectedTypeBox))
+	const color = {
+		anyOf: [
+			{ type: 'number', const: 1 },
+			{ type: 'number', const: 2 },
+		],
+	}
+	expect(JSON.parse(JSON.stringify(typeBox))).toEqual({
+		type: 'object',
+		properties: {
+			test_color: color,
+			map_enum: { type: 'object', patternProperties: { '^.*$': color }, additionalProperties: false },
+		},
+	})
 })

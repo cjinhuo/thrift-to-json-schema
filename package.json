@@ -59,7 +59,7 @@
 		"changesets-toolkit": "catalog:"
 	},
 	"type": "module",
-	"packageManager": "pnpm@12.16.1",
+	"packageManager": "pnpm@12.21.0",
 	"workspaces": [
 		"packages/*",
 		"utils/*",

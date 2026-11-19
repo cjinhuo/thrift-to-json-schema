@@ -14,7 +14,8 @@ function run(command, args, cwd = consumer) {
 }
 
 before(() => {
-	const dependencies = {}
+	const typebox = JSON.parse(readFileSync(join(root, 'packages/thrift-jsma/node_modules/typebox/package.json'), 'utf8'))
+	const dependencies = { typebox: typebox.version }
 	for (const name of ['shared', 'thrift-jsma']) {
 		const directory = join(root, 'packages', name)
 		const manifest = JSON.parse(readFileSync(join(directory, 'package.json'), 'utf8'))
@@ -45,6 +46,8 @@ for (const format of ['module', 'commonjs']) {
 				? "import * as parser from '@trasm/thrift-jsma'; import { isString } from '@trasm/shared'"
 				: "const parser = require('@trasm/thrift-jsma'); const { isString } = require('@trasm/shared')"
 		const output = run(process.execPath, [
+			// 验证 CommonJS 入口能独立加载 ESM-only 的 TypeBox。
+			...(format === 'commonjs' ? ['--no-experimental-require-module'] : []),
 			'--input-type',
 			format,
 			'-e',
@@ -55,6 +58,32 @@ for (const format of ['module', 'commonjs']) {
 		assert.deepEqual(JSON.parse(output), [true, expected, expected])
 	})
 }
+
+test('the consumer can validate recursive schemas from both SDK entry points with its own TypeBox', () => {
+	run(process.execPath, [
+		'--no-experimental-require-module',
+		'--input-type=module',
+		'-e',
+		`
+		import assert from 'node:assert/strict'
+		import { createRequire } from 'node:module'
+		import * as esm from '@trasm/thrift-jsma'
+		import { Compile } from 'typebox/compile'
+		import { Value } from 'typebox/value'
+		const cjs = createRequire(import.meta.url)('@trasm/thrift-jsma')
+		for (const sdk of [esm, cjs]) {
+			const schema = sdk.parseThriftToTypeBox('struct Node { 1: string name, 2: optional Node child }', assert.fail)
+			const compiled = Compile(schema)
+			const leaf = { name: 'leaf' }
+			for (const [child, valid] of [[leaf, true], [{}, false]]) {
+				const data = { name: 'root', child }
+				assert.equal(Value.Check(schema, data), valid)
+				assert.equal(compiled.Check(data), valid)
+			}
+		}
+	`,
+	])
+})
 
 test('the published ESM entry points still convert Thrift', () => {
 	const output = run(process.execPath, [
@@ -108,7 +137,9 @@ import { isString } from '@trasm/shared'
 const json: string = parseThriftToJsonSchema('struct User {}')
 const valid: boolean = isString(json)
 const schema = parseThriftToTypeBox('struct User {}')
-void [valid, schema?.type]
+const type: string | undefined = schema?.type
+const fieldType: string | undefined = schema?.properties?.name?.type
+void [valid, type, fieldType]
 // @ts-expect-error Thrift input must be a string
 parseThriftToTypeBox(42)
 `

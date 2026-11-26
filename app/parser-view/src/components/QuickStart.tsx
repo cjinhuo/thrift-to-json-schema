@@ -51,14 +51,9 @@ export default function QuickStart() {
 		<section id='sdk-usage' aria-labelledby='usage-title'>
 			<div className='section-heading'>
 				<h2 id='usage-title'>SDK 用法</h2>
-				<a
-					className='doc-link'
-					href='https://github.com/cjinhuo/thrift-to-json-schema#usage'
-					target='_blank'
-					rel='noreferrer'
-				>
+				<a className='doc-link' href='./guide/#recursive' target='_blank' rel='noreferrer'>
 					<IconBook />
-					查看文档
+					查看构建与示例
 					<IconLaunch />
 				</a>
 			</div>
@@ -71,7 +66,7 @@ export default function QuickStart() {
 							</button>
 						))}
 					</div>
-					<p>{snippet.detail}</p>
+					<p>以下示例基于仓库当前构建，不适用于 npm 0.0.5。{snippet.detail}</p>
 				</div>
 				<div className='snippet'>
 					<CopyButton text={snippet.code} label='复制用法代码' />

@@ -1,0 +1,71 @@
+:root {
+	color-scheme: light dark;
+	font:
+		100% / 1.65 system-ui,
+		sans-serif;
+	--paper: #f7f7f9;
+	--ink: #202234;
+	--line: #ced0df;
+	--panel: #fff;
+	--link: #413da6;
+}
+@media (prefers-color-scheme: dark) {
+	:root {
+		--paper: #1c1e2a;
+		--ink: #eef0fa;
+		--line: #50546b;
+		--panel: #282b3a;
+		--link: #c0bfff;
+	}
+}
+body {
+	margin: 0;
+	background: var(--paper);
+	color: var(--ink);
+}
+nav,
+main {
+	max-width: 49rem;
+	margin: auto;
+	padding: 1.35rem clamp(1rem, 4vw, 3rem);
+}
+nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.65rem 1.25rem;
+	border-bottom: 1px solid var(--line);
+}
+h1,
+h2 {
+	line-height: 1.2;
+}
+h1 {
+	margin: 0;
+	font-size: clamp(2rem, 5vw, 3.2rem);
+	text-wrap: balance;
+}
+h2 {
+	margin-top: 2.4rem;
+}
+a {
+	color: var(--link);
+	text-underline-offset: 0.15em;
+}
+.eyebrow {
+	color: var(--link);
+	font-weight: 700;
+}
+.lede {
+	font-size: 1.12rem;
+}
+pre,
+aside {
+	padding: 1rem;
+	border: 1px solid var(--line);
+	border-radius: 0.5rem;
+	background: var(--panel);
+}
+pre {
+	overflow: auto;
+	line-height: 1.5;
+}

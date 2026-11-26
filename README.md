@@ -6,11 +6,11 @@ Convert Thrift structs to JSON Schema or a TypeBox schema in TypeScript.
 
 Explore fields, collections and enums, recursive references, and annotation constraints in [Schema Studio](https://cjinhuo.github.io/thrift-to-json-schema/). Edit any Thrift example to see the generated JSON Schema, then try valid and invalid JSON payloads against it.
 
-## Install
+[English quickstart and recursive examples](https://cjinhuo.github.io/thrift-to-json-schema/en/) · [中文转换和校验指南](https://cjinhuo.github.io/thrift-to-json-schema/guide/)
 
-```sh
-pnpm add @trasm/thrift-jsma
-```
+## Try the SDK
+
+The examples below use the current repository build. The published npm 0.0.5 is an older build; use the [guide’s workspace setup](https://cjinhuo.github.io/thrift-to-json-schema/en/#recursive) for the current recursive and TypeBox 1 examples.
 
 ## Usage
 

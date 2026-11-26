@@ -12,3 +12,29 @@ test('the published playground explains the conversion before the editor loads',
 		'https://cjinhuo.github.io/thrift-to-json-schema/'
 	)
 })
+
+test('the localized guides are real documents with reciprocal language links', async ({ page }) => {
+	for (const [slug, language] of [
+		['guide', 'zh-CN'],
+		['en', 'en'],
+	]) {
+		const response = await page.goto(`http://127.0.0.1:4173/thrift-to-json-schema/${slug}/`)
+		expect(response?.status()).toBe(200)
+		await expect(page.locator('html')).toHaveAttribute('lang', language)
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`https://cjinhuo.github.io/thrift-to-json-schema/${slug}/`
+		)
+		for (const [alternate, alternateSlug] of [
+			['zh-CN', 'guide'],
+			['en', 'en'],
+		]) {
+			await expect(page.locator(`link[rel="alternate"][hreflang="${alternate}"]`)).toHaveAttribute(
+				'href',
+				`https://cjinhuo.github.io/thrift-to-json-schema/${alternateSlug}/`
+			)
+		}
+		await expect(page.locator('main')).toContainText('child.$ref === schema.$id')
+		await expect(page.locator('main')).toContainText("validator.Check({ name: 'Ada' })")
+	}
+})

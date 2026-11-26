@@ -35,7 +35,7 @@
         <p>生成的 Schema 要求对象包含字符串字段 <code>name</code>。</p>
         <pre><code>{"type":"object","properties":{"name":{"type":"string"}},"required":["name"]}</code></pre>
         <h2 id="sdk-usage">SDK 用法</h2>
-        <pre><code>pnpm add @trasm/thrift-jsma</code></pre>
+        <p>以下示例基于仓库当前构建。<a href="./guide/#recursive">查看 @trasm/thrift-jsma 的构建方式和递归示例</a>。</p>
         <pre><code>import { parseThriftToJsonSchema } from '@trasm/thrift-jsma'
 const schema = parseThriftToJsonSchema('struct User { 1: required string name }')</code></pre>
         <p><a href="https://github.com/cjinhuo/thrift-to-json-schema#usage">查看 SDK 文档和 TypeBox 校验示例</a></p>

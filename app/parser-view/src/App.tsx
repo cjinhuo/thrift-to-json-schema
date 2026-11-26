@@ -1,12 +1,10 @@
 import { IconArrowRight, IconCode, IconGithub, IconLaunch } from '@arco-design/web-react/icon'
 import { useEffect, useState } from 'react'
 import schemaLayers from './assets/schema-layers.webp'
-import CopyButton from './components/CopyButton'
 import Playground from './components/Playground'
 import QuickStart from './components/QuickStart'
 
 const repo = 'https://github.com/cjinhuo/thrift-to-json-schema'
-const install = 'pnpm add @trasm/thrift-jsma'
 
 export default function App() {
 	const [usageVisible, setUsageVisible] = useState(false)
@@ -56,26 +54,17 @@ export default function App() {
 							<IconArrowRight className='hero-arrow' /> JSON Schema
 						</h1>
 						<p>编辑 Thrift 定义，实时生成 JSON Schema，再用样例数据验证约束。</p>
-						<div className='install-command'>
-							<span className='shell-prompt' aria-hidden='true'>
-								$
-							</span>
-							<code>{install}</code>
-							<CopyButton label='复制安装命令' text={install} />
-						</div>
+						<p>
+							<a href='./guide/'>Thrift 转换与递归结构指南</a>
+							{' · '}
+							<a href='./en/' hrefLang='en' lang='en'>
+								English guide
+							</a>
+						</p>
 					</div>
 				</section>
 				<Playground />
 				<QuickStart />
-				<section aria-label='转换指南'>
-					<p>
-						<a href='./guide/'>Thrift 转换与递归结构指南</a>
-						{' · '}
-						<a href='./en/' hrefLang='en' lang='en'>
-							English guide
-						</a>
-					</p>
-				</section>
 			</main>
 			<footer className='wrap site-footer'>
 				<span>

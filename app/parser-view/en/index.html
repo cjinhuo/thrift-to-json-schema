@@ -45,7 +45,11 @@
 }</code></pre>
     <h2 id="recursive">Convert recursive structs: $ref inside a list</h2>
     <p>Select the recursive-reference example in the playground. The list’s <code>items.$ref</code> points to the struct’s <code>$id</code> rather than expanding the struct indefinitely. A nested <code>type</code> must still be a string.</p>
-    <pre><code>pnpm add @trasm/thrift-jsma</code></pre>
+    <p>The SDK snippets use the current repository build. The npm 0.0.5 release is an older build; do not use it for the recursion and TypeBox 1 snippets below.</p>
+    <p>From the repository root, run the commands below with Node.js 24.22.2 and pnpm 12.21.0. After changing into the playground directory, save either snippet as <code>example.mjs</code> and run <code>node example.mjs</code>.</p>
+    <pre><code>pnpm install --frozen-lockfile
+pnpm build
+cd app/parser-view</code></pre>
     <pre><code>import { parseThriftToJsonSchema } from &#x27;@trasm/thrift-jsma&#x27;
 
 const idl = `
@@ -59,7 +63,7 @@ const child = schema.properties.sub_conditions.items
 console.log(child.$ref === schema.$id) // true</code></pre>
     <h2 id="validation">Validate JSON with TypeBox 1</h2>
     <p><code>parseThriftToJsonSchema()</code> returns JSON text; <code>parseThriftToTypeBox()</code> returns a schema object you can pass to TypeBox.</p>
-    <pre><code>pnpm add @trasm/thrift-jsma typebox@^1</code></pre>
+
     <pre><code>import { parseThriftToTypeBox } from &#x27;@trasm/thrift-jsma&#x27;
 import { Compile } from &#x27;typebox/compile&#x27;
 

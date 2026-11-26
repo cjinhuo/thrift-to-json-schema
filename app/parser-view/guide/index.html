@@ -45,7 +45,11 @@
 }</code></pre>
     <h2 id="recursive">转换递归结构：列表中的 $ref</h2>
     <p>在演练场选择「递归引用」。列表的 <code>items.$ref</code> 指回当前结构的 <code>$id</code>，而不是把结构无限展开。嵌套层的 <code>type</code> 仍然必须是字符串。</p>
-    <pre><code>pnpm add @trasm/thrift-jsma</code></pre>
+    <p>以下 SDK 示例基于仓库当前源码。npm 的 0.0.5 使用的是旧构建：不要把它与本页的递归和 TypeBox 1 示例混用。</p>
+    <p>用 Node.js 24.22.2 和 pnpm 12.21.0 在仓库根目录执行以下命令。进入演练场目录后，把任一示例保存为 <code>example.mjs</code>，再运行 <code>node example.mjs</code>。</p>
+    <pre><code>pnpm install --frozen-lockfile
+pnpm build
+cd app/parser-view</code></pre>
     <pre><code>import { parseThriftToJsonSchema } from &#x27;@trasm/thrift-jsma&#x27;
 
 const idl = `
@@ -59,7 +63,7 @@ const child = schema.properties.sub_conditions.items
 console.log(child.$ref === schema.$id) // true</code></pre>
     <h2 id="validation">使用 TypeBox 1 校验 JSON</h2>
     <p><code>parseThriftToJsonSchema()</code> 返回 JSON 文本；<code>parseThriftToTypeBox()</code> 返回可交给 TypeBox 的 schema 对象。</p>
-    <pre><code>pnpm add @trasm/thrift-jsma typebox@^1</code></pre>
+
     <pre><code>import { parseThriftToTypeBox } from &#x27;@trasm/thrift-jsma&#x27;
 import { Compile } from &#x27;typebox/compile&#x27;
 

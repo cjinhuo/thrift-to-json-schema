@@ -8,11 +8,9 @@ Explore fields, collections and enums, recursive references, and annotation cons
 
 [English quickstart and recursive examples](https://cjinhuo.github.io/thrift-to-json-schema/en/) · [中文转换和校验指南](https://cjinhuo.github.io/thrift-to-json-schema/guide/)
 
-## Install
+## Try the SDK
 
-```sh
-pnpm add @trasm/thrift-jsma
-```
+The examples below use the current repository build. The published npm 0.0.5 is an older build; use the [guide’s workspace setup](https://cjinhuo.github.io/thrift-to-json-schema/en/#recursive) for the current recursive and TypeBox 1 examples.
 
 ## Usage
 

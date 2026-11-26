@@ -262,6 +262,10 @@ main {
 	font-size: 14px;
 	line-height: 1.6;
 }
+.hero p a {
+	text-decoration: underline;
+	text-underline-offset: 0.18em;
+}
 .install-command {
 	position: relative;
 	display: inline-flex;

@@ -67,6 +67,15 @@ export default function App() {
 				</section>
 				<Playground />
 				<QuickStart />
+				<section aria-label='转换指南'>
+					<p>
+						<a href='./guide/'>Thrift 转换与递归结构指南</a>
+						{' · '}
+						<a href='./en/' hrefLang='en' lang='en'>
+							English guide
+						</a>
+					</p>
+				</section>
 			</main>
 			<footer className='wrap site-footer'>
 				<span>
